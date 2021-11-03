@@ -32,7 +32,7 @@ NOTE: Username can be `root, ubuntu, google...etc`
     
 ## [TO START BOMBSQUAD SERVER]
 ```
-cd server
+cd bs-server
 ```
 ```
 chmod 777 bs_headless
