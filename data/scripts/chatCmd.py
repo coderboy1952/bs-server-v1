@@ -6,6 +6,7 @@ import bsUtils
 import random
 import getPermissionsHashes as gph
 
+
 class chatOptions(object):
     def __init__(self):
         self.all = True  # just in case
@@ -19,14 +20,11 @@ class chatOptions(object):
                 if client['players'][0]['name'] == nick.encode('utf-8'):
                     client_str = client['displayString']
                     clientID = client['clientID']
-        if client_str in gph.ownerHashes:
+        if client_str in gph.owner:
             bsInternal._chatMessage("OKK BOSS")
             return True
-        elif client_str in gph.adminHashes:
+        elif client_str in gph.co:
             bsInternal._chatMessage("Command Executed By Admin")
-            return True
-          elif client_str in gph.vipHashes:
-            bsInternal._chatMessage("Command Executed By Vip")
             return True
         else:
             return False
@@ -65,15 +63,53 @@ class chatOptions(object):
                         if client['clientID'] == clID:
                             if a[1] == 'add':
                                 newadmin = client['displayString']
-                                updated_admins = gph.adminHashes.append(newadmin)
+                                updated_admins = gph.co.append(newadmin)
                             elif a[1] == 'remove':
                                 newadmin = client['displayString']
                                 if newadmin in gph.co:
-                                    updated_admins = gph.adminHashes.remove(newadmin)
+                                    updated_admins = gph.co.remove(newadmin)
 
                     with open(bs.getEnvironment()['systemScriptsDirectory'] + "/getPermissionsHashes.py") as file:
                         s = [row for row in file]
                         s[1] = 'co = ' + updated_admins + '\n'
+                        f = open(bs.getEnvironment()['systemScriptsDirectory'] + "/getPermissionsHashes.py", 'w')
+                        for i in s:
+                            f.write(i)
+                        f.close()
+                elif m == '/chu':
+                    clID = int(a[0])
+                    for client in bsInternal._getGameRoster():
+                        if client['clientID'] == clID:
+                            if a[1] == 'add':
+                                chutiya = client['displayString']
+                                updated_chutiya = gph.chutiya.append(chutiya)
+                            elif a[1] == 'remove':
+                                chutiya = client['displayString']
+                                if chutiya in gph.chutiya:
+                                    updated_chutiya = gph.chutiya.remove(chutiya)
+
+                    with open(bs.getEnvironment()['systemScriptsDirectory'] + "/getPermissionsHashes.py") as file:
+                        s = [row for row in file]
+                        s[3] = 'chutiya = ' + updated_chutiya + '\n'
+                        f = open(bs.getEnvironment()['systemScriptsDirectory'] + "/getPermissionsHashes.py", 'w')
+                        for i in s:
+                            f.write(i)
+                        f.close()
+                elif m == '/ass':
+                    clID = int(a[0])
+                    for client in bsInternal._getGameRoster():
+                        if client['clientID'] == clID:
+                            if a[1] == 'add':
+                                ass = client['displayString']
+                                updated_ass = gph.assholes.append(ass)
+                            elif a[1] == 'remove':
+                                ass = client['displayString']
+                                if ass in gph.assholes:
+                                    updated_ass = gph.assholes.remove(ass)
+
+                    with open(bs.getEnvironment()['systemScriptsDirectory'] + "/getPermissionsHashes.py") as file:
+                        s = [row for row in file]
+                        s[2] = 'assholes = ' + updated_ass + '\n'
                         f = open(bs.getEnvironment()['systemScriptsDirectory'] + "/getPermissionsHashes.py", 'w')
                         for i in s:
                             f.write(i)
@@ -682,4 +718,3 @@ def cmd(msg):
     if bsInternal._getForegroundHostActivity() is not None:
         n = msg.split(': ')
         c.opt(n[0], n[1])
-
