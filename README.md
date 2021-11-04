@@ -17,7 +17,7 @@ For Ubuntu16.04 or Up
 
 For Installing Scripts
 
-    git clone https://github.com/coderboy1952/bs-server
+    git clone https://github.com/coderboy1952/bs-server-v1
     
 Command For Installing Apache On Server
 
